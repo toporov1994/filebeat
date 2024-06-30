@@ -1,0 +1,16 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/lib/docker/containers/*.log
+
+output.elasticsearch:
+  hosts: ["https://yurhosts:9200"]
+  protocol: "https"
+  username: "username"
+  password: "password"
+  ssl.verification_mode: none
+
+processors:
+  - add_docker_metadata:
+      host: "unix:///host_docker/docker.sock"
